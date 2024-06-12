@@ -2,15 +2,17 @@ class Pesawat {
   String? nama;
   String? kode;
   String? jenis;
+  String? status;
 
-  Pesawat(this.nama, this.kode, this.jenis);
+  Pesawat(this.nama, this.kode, this.jenis, this.status);
 
-  @override
-  String toString() => 'Nama maskapai: $nama, Kode pesawat: $kode, Jenis pesawat: $jenis';
+  String toString() {
+  return 'Nama maskapai: $nama, Kode pesawat: $kode, Jenis pesawat: $jenis, Status: $status';
+}
 }
 
-class Queue{
-  List<Pesawat?> antrian= [];
+class Queue {
+  List<Pesawat?> antrian = [];
   int front = 0;
   int rear = -1;
   int maxQueue = 0;
@@ -35,8 +37,21 @@ class Queue{
     if (isFull()) {
       print("Antrian Penuh, Tidak dapat diisi lagi!");
     } else {
-      rear += 1;
-      antrian[rear] = data;
+      if (data.status == "prioritas") {
+        if (isEmpty()) {
+          front = 0;
+          rear = 0;
+        } else {
+          rear += 1;
+          for (int i = rear; i > front; i--) {
+            antrian[i] = antrian[i - 1];
+          }
+          antrian[front] = data;
+        }
+      } else {
+        rear += 1;
+        antrian[rear] = data;
+      }
     }
   }
 
@@ -50,7 +65,10 @@ class Queue{
       front = 0;
       rear = -1;
     } else {
-      front += 1;
+      for (int i = front; i < rear; i++) {
+        antrian[i] = antrian[i + 1];
+      }
+      rear -= 1;
     }
     return removedItem;
   }
