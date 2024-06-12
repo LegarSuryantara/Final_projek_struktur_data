@@ -25,9 +25,16 @@ void menuAntrianTakeOff() {
           String? namaMaskapai = stdin.readLineSync();
           print("Masukkan kode maskapai: ");
           String? kode = stdin.readLineSync();
+          int hasil = antrianTakeOff.search(kode);
+          if (hasil != -1) {
+            print("Maskapai dengan kode $kode sudah berada di antrian!!");
+            break;
+          } 
           print("Masukkan jenis maskapai: ");
           String? jenis = stdin.readLineSync();
-          antrianTakeOff.enqueue(Pesawat(namaMaskapai, kode, jenis));
+          print("Masukkan Status Penerbangan: ");
+          String? status = stdin.readLineSync()?.toLowerCase();
+          antrianTakeOff.enqueue(Pesawat(namaMaskapai, kode, jenis, status));
           print("Maskapai $namaMaskapai dengan kode $kode dan jenis pesawat $jenis telah dimasukkan ke dalam antrian Take off!!");
         break;
       case '2':
