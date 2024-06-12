@@ -18,6 +18,7 @@ void menuAntrianLanding(){
     print("5. Keluar kembali ke menu utama");
 
     print("Pilih menu (1/2/3/4/5)");
+    
     String? pilih = stdin.readLineSync();
 
     switch (pilih) {
@@ -26,9 +27,16 @@ void menuAntrianLanding(){
           String? namaMaskapai = stdin.readLineSync();
           print("Masukkan kode maskapai: ");
           String? kode = stdin.readLineSync();
+          int hasil = antrianLanding.search(kode);
+          if (hasil != -1) {
+            print("Maskapai dengan kode $kode sudah berada di antrian!!");
+            break;
+          } 
           print("Masukkan jenis maskapai: ");
           String? jenis = stdin.readLineSync();
-          antrianLanding.enqueue(Pesawat(namaMaskapai, kode, jenis));
+          print("Masukkan Status Penerbangan: ");
+          String? status = stdin.readLineSync()?.toLowerCase();
+          antrianLanding.enqueue(Pesawat(namaMaskapai, kode, jenis, status));
           print("Maskapai $namaMaskapai dengan kode $kode dan jenis pesawat $jenis telah dimasukkan ke dalam antrian landing!!");
         break;
       case '2':
